@@ -11,13 +11,17 @@ export function KitProvider({ children }) {
   const [kit, setKit] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
+  // =========================
+  //        EQUIPOS
+  // =========================
   async function getTeams(params = {}) {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(`${api}/api/teams`, { params });
+      const res = await axios.get(`${api}/teams`, { params });
       setTeams(res.data?.data || []);
     } catch (e) {
       setError("Error al cargar equipos");
@@ -26,11 +30,14 @@ export function KitProvider({ children }) {
     }
   }
 
+  // =========================
+  //       LISTA DE KITS
+  // =========================
   async function getKits(params = {}) {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(`${api}/api/kits`, { params });
+      const res = await axios.get(`${api}/kits`, { params });
       setKits(res.data?.data || []);
     } catch (e) {
       setError("Error al cargar kits");
@@ -39,11 +46,14 @@ export function KitProvider({ children }) {
     }
   }
 
+  // =========================
+  //       DETALLE DEL KIT
+  // =========================
   async function getKitById(id) {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(`${api}/api/kits/${id}`);
+      const res = await axios.get(`${api}/kits/${id}`);
       setKit(res.data?.data || null);
     } catch (e) {
       setError("Error al cargar la camiseta");

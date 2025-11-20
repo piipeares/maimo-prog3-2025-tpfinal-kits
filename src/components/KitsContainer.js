@@ -21,7 +21,7 @@ export default function KitsContainer() {
 
   useEffect(() => {
     getKits({ page: 1, limit: 24, q, type });
-  }, [q, type, getKits]);
+  }, [q, type]);   // 👈 solo estas deps
 
   return (
     <main className="space-y-8 py-6">
