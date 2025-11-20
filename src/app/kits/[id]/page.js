@@ -1,5 +1,6 @@
 import KitDetailContainer from "../../../components/KitDetailContainer";
 
-export default function Page({ params }) {
-  return <KitDetailContainer id={params.id} />;
+export default async function Page({ params }) {
+  const { id } = await params;
+  return <KitDetailContainer id={id} />;
 }

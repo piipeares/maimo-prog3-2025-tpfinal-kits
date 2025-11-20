@@ -21,15 +21,21 @@ export default function KitsContainer() {
 
   useEffect(() => {
     getKits({ page: 1, limit: 24, q, type });
-  }, [q, type]);   // 👈 solo estas deps
+  }, [q, type]);
 
   return (
-    <main className="space-y-8 py-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="space-y-1">
-          <SectionHeader title="Archivo de camisetas" />
-          <p className="text-sm text-neutral-400">
-            Filtrá por tipo o buscá por temporada, proveedor o sponsor.
+    <main className="space-y-12 py-10">
+      <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between border-b border-neutral-800 pb-8">
+        <div className="space-y-3 max-w-2xl">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white uppercase tracking-tighter leading-none">
+            Museo de{" "}
+            <span className="text-transparent [-webkit-text-stroke:1px_#e5c07b]">
+              Camisetas
+            </span>
+          </h1>
+          <p className="text-neutral-400 text-sm md:text-base font-light max-w-lg leading-relaxed pl-4 border-l-2 border-[#e5c07b]">
+            Filtrá por tipo o buscá por temporada, proveedor o sponsor para
+            encontrar esa joya perdida.
           </p>
         </div>
 
@@ -37,12 +43,12 @@ export default function KitsContainer() {
           <SearchBar
             value={q}
             onChange={setQ}
-            placeholder="Buscar por temporada, proveedor o sponsor"
+            placeholder="Buscar por temporada..."
           />
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="w-full rounded-xl border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm outline-none sm:w-40"
+            className="w-full rounded-xl border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm outline-none sm:w-40 focus:border-[#e5c07b] transition-colors"
           >
             {TYPES.map((t) => (
               <option key={t.value} value={t.value}>

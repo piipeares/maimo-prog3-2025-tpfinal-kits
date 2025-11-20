@@ -7,6 +7,7 @@ const KitContext = createContext(null);
 
 export function KitProvider({ children }) {
   const [teams, setTeams] = useState([]);
+  const [team, setTeam] = useState(null);
   const [kits, setKits] = useState([]);
   const [kit, setKit] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,9 +15,6 @@ export function KitProvider({ children }) {
 
   const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
-  // =========================
-  //        EQUIPOS
-  // =========================
   async function getTeams(params = {}) {
     setLoading(true);
     setError("");
@@ -30,9 +28,19 @@ export function KitProvider({ children }) {
     }
   }
 
-  // =========================
-  //       LISTA DE KITS
-  // =========================
+  async function getTeamById(id) {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.get(`${api}/teams/${id}`);
+      setTeam(res.data?.data || null);
+    } catch (e) {
+      setError("Error al cargar el equipo");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function getKits(params = {}) {
     setLoading(true);
     setError("");
@@ -46,9 +54,6 @@ export function KitProvider({ children }) {
     }
   }
 
-  // =========================
-  //       DETALLE DEL KIT
-  // =========================
   async function getKitById(id) {
     setLoading(true);
     setError("");
@@ -64,11 +69,13 @@ export function KitProvider({ children }) {
 
   const value = {
     teams,
+    team,
     kits,
     kit,
     loading,
     error,
     getTeams,
+    getTeamById,
     getKits,
     getKitById,
   };
